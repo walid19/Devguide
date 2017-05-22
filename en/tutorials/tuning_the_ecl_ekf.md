@@ -76,7 +76,7 @@ Fixed wing platforms can take advantage of an assumed sideslip observation of ze
 
 Multi-rotor platforms can take advantage of the relationship between airspeed and drag force along the X and Y body axes to estimate North/East components of wind velocity. This is enabled by setting bit position 4 in the EKF2\_AID\_MASK parameter to true. The relationship between airspeed and specific force \(IMU acceleration\) along the X and Y body axes is controlled by the the EKF2\_BCOEF\_X and EKF2\_BCOEF\_Y parameters which set the ballistic coefficients for flight in the X and Y directions respectively. The amount of specific force observation noise is set by the EKF2\_DRAG\_NOISE parameter.
 
-The  EKF2\_BCOEF\_X and EKF2\_BCOEF\_Y parameters are set to a default value that is typical of mid size multi-rotors, but can be adjusted so that the value of the specific force innovation
+The  EKF2\_BCOEF\_X and EKF2\_BCOEF\_Y parameters are set to a default value that is typical of mid size multi-rotors, but can be adjusted to minimise the specific force innovation levels.
 
 ### Optical Flow
 
@@ -214,10 +214,12 @@ Refer to covariances\[28\] in [estimator\_status](https://github.com/PX4/Firmwar
 * Magnetometer XYZ \(gauss^2\) : Refer to mag\_innov\_var\[3\] in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Yaw angle \(rad^2\) : Refer to heading\_innov\_var in the ekf2\_innovations message.
 * Velocity and position innovations : Refer to vel\_pos\_innov\_var\[6\] in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg). The index map for vel\_pos\_innov\_var\[6\] is as follows:
+
   * \[0 ... 2\] Velocity NED \(m/s\)^2
   * \[3 ... 5\] Position NED \(m^2\)
 
 * True Airspeed \(m/s\)^2 : Refer to airspeed\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
+
 * Synthetic sideslip \(rad^2\) : Refer to beta\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Optical flow XY \(rad/sec\)^2 : Refer to flow\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Height above ground \(m^2\) : Refer to hagl\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).

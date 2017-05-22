@@ -96,6 +96,22 @@ Position and Pose Measurements from an external vision system, eg Vicon, can be 
 
 Set the SYS\_MC\_EST\_GROUP parameter to 2 to use the ecl EKF.
 
+## How do I correct for height errors caused by static pressure position errors?
+
+When a vehicle is flying through the air, the Bernoulli principle causes air pressure at different points around the body or fuselage to be higher or lower than atmospheric depending  on whether the air has been slowed down or accelerated as it passes around the body. In practice this normally means that the air in front of the body is higher and air around the sides is at a lower pressure than atmospheric.
+
+This pressure increase or decrease is proportional to the dynamic pressure 0.5 \* air\_density \* airspeed\*\*2 and is referred to as 'positional error' becasue it varies depending on where the pressure is measured.
+
+The ekf2 module provides a method of compensating for this error by modelling the error coefficient from dynamic pressure to pressure error as an ellipse centred on the body with a different error coefficient for each body axis. The compensation uses the following technique.
+
+The EKF uses the earth frame velocity estimates of the vehicle and wind to calculate a wind relative velocity estimate. For multi-rotors an estimate can be formed using fusion of drag induced specific forces in the X and Y body frame. See the section on drag specific force observations for details.
+
+The EKF wind relative velocity is rotated into the body reference frame, and the dynamic pressure along each axis is calculated.
+
+The dynamic pressure is multiplied by the positional error coefficient to calculate the amount of pressure due to motion of the body. The contribution for flow alongeach axis is summed to calculate a total pressure error. 
+
+The pressure error is converted to a height error using the local values of air density and height and subtracted from the baro height before the height is used by the EK.F
+
 ## What are the advantages and disadvantages of the ecl EKF over other estimators?
 
 Like all estimators, much of the performance comes from the tuning to match sensor characteristics. Tuning is a compromise between accuracy and robustness and although we have attempted to provide a tune that meets the needs of most users, there will be applications where tuning changes are required.
@@ -116,9 +132,9 @@ For this reason, no claims for accuracy relative to the legacy combination of at
 * The ecl EKF detects and reports statistically significant inconsistencies in sensor data, assisting with diagnosis of sensor errors.
 * For fixed wing operation, the ecl EKF estimates wind speed with or without an airspeed sensor and is able to use the estimated wind in combination with airspeed measurements and sideslip assumptions to extend the dead-reckoning time available if GPS is lost in flight.
 * The ecl EKF estimates 3-axis accelerometer bias which improves accuracy for tailsitters and other vehicles that experience large attitude changes between flight phases.
-* The ecl EKF provides multi-rotor platforms with the ability to use drag produced specific forces to estimate wind velocity components. 
+* The ecl EKF provides multi-rotor platforms with the ability to use drag produced specific forces to estimate wind velocity components.
 
-* The federated architecture \(combined attitude and position/velocity estimation\) means that attitude estimation benefits from all sensor measurements. This should provide the potential for improved attitude estimation if tuned correctly. 
+* The federated architecture \(combined attitude and position/velocity estimation\) means that attitude estimation benefits from all sensor measurements. This should provide the potential for improved attitude estimation if tuned correctly.
 
 ## How do I check the EKF performance?
 

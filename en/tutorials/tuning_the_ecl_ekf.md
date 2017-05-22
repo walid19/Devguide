@@ -98,9 +98,9 @@ Set the SYS\_MC\_EST\_GROUP parameter to 2 to use the ecl EKF.
 
 ## How do I correct for height errors caused by static pressure position errors?
 
-When a vehicle is flying through the air, the Bernoulli principle causes air pressure at different points around the body or fuselage to be higher or lower than atmospheric depending  on whether the air has been slowed down or accelerated as it passes around the body. In practice this normally means that the air in front of the body is higher and air around the sides is at a lower pressure than atmospheric.
+When a vehicle is flying through the air, the Bernoulli principle causes air pressure at different points around the body or fuselage to be higher or lower than atmospheric depending  on whether the air has been slowed down or accelerated as it passes around the body. In practice this normally means that in forward flight the air pressure in front of the body is higher and air around the sides is lower than atmospheric. 
 
-This pressure increase or decrease is proportional to the dynamic pressure 0.5 \* air\_density \* airspeed\*\*2 and is referred to as 'positional error' becasue it varies depending on where the pressure is measured. For example, many multirotors have body shells with cooling ventss on the top and/or bottom sides and experience a reduction in measured static pressure during horizontal flight that can cause a visible height reduction.
+This pressure increase or decrease is proportional to the dynamic pressure 0.5 \* air\_density \* airspeed\*\*2 and is referred to as 'positional error' becasue it varies depending on where the pressure is measured. For example, many multirotors have body shells with cooling vents on the top and/or bottom sides and experience a reduction in measured static pressure during horizontal flight that can cause a visible height reduction.
 
 The ekf2 module provides a method of compensating for this error by modelling the error coefficient from dynamic pressure to pressure error as an ellipse centred on the body with a different error coefficient for each body axis. The compensation uses the following technique:
 

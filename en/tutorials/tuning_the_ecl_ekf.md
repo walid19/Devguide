@@ -76,6 +76,8 @@ Fixed wing platforms can take advantage of an assumed sideslip observation of ze
 
 Multi-rotor platforms can take advantage of the relationship between airspeed and drag force along the X and Y body axes to estimate North/East components of wind velocity. This is enabled by setting bit position 4 in the EKF2\_AID\_MASK parameter to true. The relationship between airspeed and specific force \(IMU acceleration\) along the X and Y body axes is controlled by the the EKF2\_BCOEF\_X and EKF2\_BCOEF\_Y parameters which set the ballistic coefficients for flight in the X and Y directions respectively. The amount of specific force observation noise is set by the EKF2\_DRAG\_NOISE parameter.
 
+The  EKF2\_BCOEF\_X and EKF2\_BCOEF\_Y parameters are set to a default value that is typical of mid size multi-rotors, but can be adjusted so that the value of the specific force innovation
+
 ### Optical Flow
 
 Optical flow data will be used if the following conditions are met:
@@ -98,7 +100,7 @@ Set the SYS\_MC\_EST\_GROUP parameter to 2 to use the ecl EKF.
 
 ## How do I correct for height errors caused by static pressure position errors?
 
-When a vehicle is flying through the air, the Bernoulli principle causes air pressure at different points around the body or fuselage to be higher or lower than atmospheric depending  on whether the air has been slowed down or accelerated as it passes around the body. In practice this normally means that in forward flight the air pressure in front of the body is higher and air around the sides is lower than atmospheric. 
+When a vehicle is flying through the air, the Bernoulli principle causes air pressure at different points around the body or fuselage to be higher or lower than atmospheric depending  on whether the air has been slowed down or accelerated as it passes around the body. In practice this normally means that in forward flight the air pressure in front of the body is higher and air around the sides is lower than atmospheric.
 
 This pressure increase or decrease is proportional to the dynamic pressure 0.5 \* air\_density \* airspeed\*\*2 and is referred to as 'positional error' becasue it varies depending on where the pressure is measured. For example, many multirotors have body shells with cooling vents on the top and/or bottom sides and experience a reduction in measured static pressure during horizontal flight that can cause a visible height reduction.
 
@@ -205,6 +207,7 @@ Refer to covariances\[28\] in [estimator\_status](https://github.com/PX4/Firmwar
 * Synthetic sideslip \(rad\) : Refer to beta\_innov in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Optical flow XY \(rad/sec\) : Refer to flow\_innov in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Height above ground \(m\) : Refer to hagl\_innov in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
+* Body specific forces \(m/sec\*\*2\) : Refer to drag\_innov in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 
 ### Observation Innovation Variances
 

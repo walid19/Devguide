@@ -170,7 +170,7 @@ Multiple log files in a directory can be analysed using the [batch\_process\_log
 
 ### States
 
-Refer to states\[32\] in [estimator\_status](https://github.com/PX4/Firmware/blob/master/msg/estimator_status.msg). The index map for states\[32\] is as follows:
+Refer to states\[32\] in [estimator\_status](https://github.com/PX4/Firmware/blob/master/msg/estimator_status.msg). The index map for states\[24\] is as follows:
 
 * \[0 ... 3\] Quaternions
 * \[4 ... 6\] Velocity NED \(m/s\)
@@ -180,11 +180,10 @@ Refer to states\[32\] in [estimator\_status](https://github.com/PX4/Firmware/blo
 * \[16 ... 18\] Earth magnetic field NED \(gauss\)
 * \[19 ... 21\] Body magnetic field XYZ \(gauss\)
 * \[22 ... 23\] Wind velocity NE \(m/s\)
-* \[24 ... 32\] Not Used
 
 ### State Variances
 
-Refer to covariances\[28\] in [estimator\_status](https://github.com/PX4/Firmware/blob/master/msg/estimator_status.msg). The index map for covariances\[28\] is as follows:
+Refer to covariances\[28\] in [estimator\_status](https://github.com/PX4/Firmware/blob/master/msg/estimator_status.msg). The index map for covariances\[24\] is as follows:
 
 * \[0 ... 3\] Quaternions
 * \[4 ... 6\] Velocity NED \(m/s\)^2
@@ -194,7 +193,6 @@ Refer to covariances\[28\] in [estimator\_status](https://github.com/PX4/Firmwar
 * \[16 ... 18\] Earth magnetic field NED \(gauss^2\)
 * \[19 ... 21\] Body magnetic field XYZ \(gauss^2\)
 * \[22 ... 23\] Wind velocity NE \(m/s\)^2
-* \[24 ... 28\] Not Used
 
 ### Observation Innovations
 
@@ -221,6 +219,7 @@ Refer to covariances\[28\] in [estimator\_status](https://github.com/PX4/Firmwar
 * True Airspeed \(m/s\)^2 : Refer to airspeed\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 
 * Synthetic sideslip \(rad^2\) : Refer to beta\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
+
 * Optical flow XY \(rad/sec\)^2 : Refer to flow\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Height above ground \(m^2\) : Refer to hagl\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
 * Body drag specific forces \(m/sec^2**\)^**2 Refer to drag\_innov\_var in [ekf2\_innovations](https://github.com/PX4/Firmware/blob/master/msg/ekf2_innovations.msg).
